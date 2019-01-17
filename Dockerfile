@@ -19,8 +19,8 @@ RUN echo 'mysql-apt-config mysql-apt-config/unsupported-platform select abort' |
 RUN wget https://dev.mysql.com/get/mysql-apt-config_0.8.10-1_all.deb
 RUN dpkg -i mysql-apt-config_0.8.10-1_all.deb
 RUN apt-get  update
-RUN apt-get autoclean
-RUN apt-get upgrade
+RUN apt-get -y autoclean
+RUN apt-get -y upgrade
 RUN apt-get  install -y --force-yes ssh 
 RUN apt-get install -y --force-yes mysql-server
 RUN apt-get install -y --force-yes mysql-client  
