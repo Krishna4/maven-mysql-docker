@@ -1,14 +1,18 @@
+FROM maven:3.2-jdk-8
 
-FROM mysql:5.7
-ENV MYSQL_ROOT_PASSWORD=root
-ENV MYSQL_ALLOW_EMPTY_PASSWORD=no
+ENV DEBIAN_FRONTEND=noninteractive
+RUN apt-get upgrade -y
+RUN apt-get update
+RUN apt-get -q -y install mysql-server
+RUN apt-get -q -y install npm
+RUN apt-get -q -y install grunt
+RUN apt-get -q -y install python-pip
+RUN pip install --upgrade awscli
+RUN pip install --upgrade awsebcli
 
-RUN apt-get update
-RUN apt-get -y install software-properties-common
-RUN add-apt-repository -y ppa:webupd8team/java
-RUN echo debconf shared/accepted-oracle-license-v1-1 select true | debconf-set-selections
-RUN echo debconf shared/accepted-oracle-license-v1-1 seen true | debconf-set-selections
-RUN apt-get update
-RUn apt-get -y  install openjdk-8-jdk
-RUN apt-get -y install maven
-RUN mvn -version
+# ensure that /var/run/mysqld (used for socket and lock files) is writable regardless of the UID our mysqld instance ends up having at runtime
+RUN mkdir /var/run/mysqld 
+RUN chmod 777 /var/run/mysqld
+
+EXPOSE 3306
+
