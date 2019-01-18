@@ -19,5 +19,5 @@ RUN mkdir -p /usr/share/man/man1 && \
 #RUN echo debconf shared/accepted-oracle-license-v1-1 seen true | debconf-set-selections
 #RUN apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys EEA14886
 RUN apt update
-RUN apt-get -y install maven
+RUN apt-get -y install maven ssh git
 RUN mvn -version
